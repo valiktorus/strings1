@@ -7,7 +7,8 @@ public class Constants {
     public static final int FIRST_OPERATOR_INDEX = 8;
     public static final String INPUT_FILE_IS_NOT_FOUND = "Input file is not found";
     public static final String NUMBERS_SEPARATOR = ";";
-    public static final String ERROR_LINES = "\nerror-lines = ";
+    public static final String NEXT_LINE = "\n";
+    public static final String ERROR_LINES = "error-lines = ";
     public static final String SYMBOLS_AFTER_LAST_NUMBER = ") = ";
     public static final double ZERO = 0.0;
     public static final String RESULT = "result(";

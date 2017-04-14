@@ -27,16 +27,10 @@ public class Runner {
                     errorLines++;
                 }
             }
-            builder.append(Constants.SYMBOLS_AFTER_LAST_NUMBER).
-                    append(sum).
-                    append(Constants.ERROR_LINES).
-                    append(errorLines);
-            char firstNumberOperator = builder.charAt(Constants.FIRST_OPERATOR_INDEX);
-            if (firstNumberOperator == '-'){
-                builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "-");
-            }else if (firstNumberOperator == '+'){
-                builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "");
-            }
+
+            appendResultAndErrors(builder, sum, errorLines);
+
+            standardizeOutput(builder);
 
             System.out.println(builder);
         }catch (FileNotFoundException e){
@@ -47,11 +41,29 @@ public class Runner {
             }
         }
     }
+
     private static double findNumberInLine(Scanner scanner){
         String line = scanner.nextLine();
         String[] values = line.split(Constants.NUMBERS_SEPARATOR);
         int indexRequiredNumber = Integer.parseInt(values[0]);
         return Double.parseDouble(values[indexRequiredNumber]);
 
+    }
+
+    private static void appendResultAndErrors(StringBuilder builder, double sum, int errorLines){
+        builder.append(Constants.SYMBOLS_AFTER_LAST_NUMBER).
+                append(sum).
+                append(Constants.NEXT_LINE).
+                append(Constants.ERROR_LINES).
+                append(errorLines);
+    }
+
+    private static void standardizeOutput(StringBuilder builder){
+        char firstNumberOperator = builder.charAt(Constants.FIRST_OPERATOR_INDEX);
+        if (firstNumberOperator == '-'){
+            builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "-");
+        }else if (firstNumberOperator == '+'){
+            builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "");
+        }
     }
 }
