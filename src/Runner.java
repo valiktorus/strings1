@@ -16,7 +16,7 @@ public class Runner {
                 try {
                     double number = findNumberInLine(scanner);
                     sum += number;
-                    if (number >= Constants.DOUBLE_ZERO){
+                    if (number >= Constants.ZERO){
                         builder.append(Constants.PLUS);
                         builder.append(number);
                     }else {
@@ -47,7 +47,7 @@ public class Runner {
             }
         }
     }
-    public static double findNumberInLine(Scanner scanner){
+    private static double findNumberInLine(Scanner scanner){
         String line = scanner.nextLine();
         String[] values = line.split(Constants.NUMBERS_SEPARATOR);
         int indexRequiredNumber = Integer.parseInt(values[0]);

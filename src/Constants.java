@@ -9,6 +9,6 @@ public class Constants {
     public static final String NUMBERS_SEPARATOR = ";";
     public static final String ERROR_LINES = "\nerror-lines = ";
     public static final String SYMBOLS_AFTER_LAST_NUMBER = ") = ";
-    public static final double DOUBLE_ZERO = 0.0;
+    public static final double ZERO = 0.0;
     public static final String RESULT = "result(";
 }
