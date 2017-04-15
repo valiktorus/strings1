@@ -8,7 +8,7 @@ public class Runner {
         Scanner scanner = null;
         int errorLines = 0;
         double sum = 0;
-        StringBuilder builder = new StringBuilder(Constants.RESULT);
+        StringBuilder builder = new StringBuilder();
         try {
             scanner = new Scanner(new FileReader(Constants.FILE_NAME));
             scanner.useLocale(Locale.ENGLISH);
@@ -16,21 +16,15 @@ public class Runner {
                 try {
                     double number = findNumberInLine(scanner);
                     sum += number;
-                    if (number >= Constants.ZERO){
-                        builder.append(Constants.PLUS);
-                        builder.append(number);
-                    }else {
-                        builder.append(Constants.MINUS);
-                        builder.append(-number);
-                    }
+                    builder.append(number >= Constants.ZERO ? Constants.PLUS : Constants.MINUS).append(Math.abs(number));
                 }catch (ArrayIndexOutOfBoundsException|NumberFormatException e){
                     errorLines++;
                 }
             }
 
-            appendResultAndErrors(builder, sum, errorLines);
-
             standardizeOutput(builder);
+
+            createOutputLine(builder, sum, errorLines);
 
             System.out.println(builder);
         }catch (FileNotFoundException e){
@@ -50,7 +44,8 @@ public class Runner {
 
     }
 
-    private static void appendResultAndErrors(StringBuilder builder, double sum, int errorLines){
+    private static void createOutputLine(StringBuilder builder, double sum, int errorLines){
+        builder.insert(0, Constants.RESULT);
         builder.append(Constants.SYMBOLS_AFTER_LAST_NUMBER).
                 append(sum).
                 append(Constants.NEXT_LINE).
@@ -59,11 +54,12 @@ public class Runner {
     }
 
     private static void standardizeOutput(StringBuilder builder){
-        char firstNumberOperator = builder.charAt(Constants.FIRST_OPERATOR_INDEX);
-        if (firstNumberOperator == '-'){
-            builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "-");
-        }else if (firstNumberOperator == '+'){
-            builder.replace(Constants.FIRST_OPERATOR_START, Constants.FIRST_OPERATOR_END, "");
+        if (builder.length() > 0){
+            char firstNumberOperator = builder.charAt(Constants.SIGN_POSITION);
+            builder.delete(0, Constants.SIGN_LENGTH);
+            if (firstNumberOperator == Constants.CHAR_MINUS){
+                builder.insert(0, Constants.CHAR_MINUS);
+            }
         }
     }
 }
